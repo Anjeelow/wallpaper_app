@@ -63,7 +63,6 @@ export default function HomeScreen({navigation}) {
   };
 
   const loadNextPage = () => {
-    console.log(`End reached, Page: ${currentPage}`);
     setCurrentPage(currentPage + 1);
   };
 
