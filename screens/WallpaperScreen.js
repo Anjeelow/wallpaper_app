@@ -25,12 +25,13 @@ export default function WallpaperScreen() {
       const response = await fetch(`https://wallhaven.cc/api/v1/w/${id}`);
       const json = await response.json();
       setData([json.data]);
-    } catch (error) {
+    } catch(error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getWallpapers();

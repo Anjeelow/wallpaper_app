@@ -10,6 +10,7 @@ import ColorsScreen from './screens/ColorsScreen';
 import WallpaperScreen from './screens/WallpaperScreen';
 import ByColorScreen from './screens/ByColorScreen';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
