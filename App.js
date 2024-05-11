@@ -11,7 +11,7 @@ import WallpaperScreen from './screens/WallpaperScreen';
 import ByColorScreen from './screens/ByColorScreen';
 
 const Stack = createNativeStackNavigator()
-
+//Happy
 export default function App(){
   return(
     <NavigationContainer>
