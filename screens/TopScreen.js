@@ -11,7 +11,7 @@ export default function TopScreen({navigation}){
         const response = await fetch('https://wallhaven.cc/api/v1/search?sorting=toplist');
         const json = await response.json();
         setData(json.data);
-        } catch (error) {
+        } catch(error) {
         console.error(error);
         } finally {
         setLoading(false);
