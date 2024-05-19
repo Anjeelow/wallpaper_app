@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Button, View} from 'react-native';
+import {Button, Pressable, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -9,6 +9,10 @@ import HotScreen from './screens/HotScreen';
 import ColorsScreen from './screens/ColorsScreen';
 import WallpaperScreen from './screens/WallpaperScreen';
 import ByColorScreen from './screens/ByColorScreen';
+import ViewWallpaperScreen from './screens/ViewWallpaperScreen';
+import AboutScreen from './screens/AboutScreen';
+import SearchScreen from './screens/SearchScreen';
+import FavoriteScreen from './screens/FavoriteScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,26 +34,32 @@ export default function App() {
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  width: 100,
+                  width: 110,
                 }}>
-                <Icon
-                  name="search"
-                  color="rgba(255, 255, 255, .9)"
-                  size={24}
-                  style={{backgroundColor: 'transparent'}}
-                />
-                <Icon
-                  name="favorite"
-                  color="rgba(255, 255, 255, .9)"
-                  size={24}
-                  style={{backgroundColor: 'transparent'}}
-                />
-                <Icon
-                  name="info"
-                  color="rgba(255, 255, 255, .9)"
-                  size={24}
-                  style={{backgroundColor: 'transparent'}}
-                />
+                <Pressable>
+                  <Icon
+                    name="search"
+                    color="rgba(255, 255, 255, .9)"
+                    size={24}
+                    style={{backgroundColor: 'transparent'}}
+                  />
+                </Pressable>
+                <Pressable>
+                  <Icon
+                    name="favorite"
+                    color="rgba(255, 255, 255, .9)"
+                    size={24}
+                    style={{backgroundColor: 'transparent'}}
+                  />
+                </Pressable>
+                <Pressable>
+                  <Icon
+                    name="info"
+                    color="rgba(255, 255, 255, .9)"
+                    size={24}
+                    style={{backgroundColor: 'transparent'}}
+                  />
+                </Pressable>
               </View>
             ),
           }}
@@ -60,6 +70,16 @@ export default function App() {
         <Stack.Screen name="Colors" component={ColorsScreen} />
         <Stack.Screen name=" " component={WallpaperScreen} />
         <Stack.Screen name="ByColor" component={ByColorScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Favorite" component={FavoriteScreen} />
+        <Stack.Screen
+          name="ViewWallpaper"
+          component={ViewWallpaperScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
