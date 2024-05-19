@@ -12,11 +12,12 @@ import React, {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {Style} from '../styles/Global';
 
-export default function WallpaperScreen() {
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+export default function WallpaperScreen({navigation}) {
   const dimension = Dimensions.get('window');
   const route = useRoute();
   const id = route.params?.id;
-
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -24,8 +25,10 @@ export default function WallpaperScreen() {
     try {
       const response = await fetch(`https://wallhaven.cc/api/v1/w/${id}`);
       const json = await response.json();
-      setData([json.data]);
-    } catch(error) {
+      
+      setData(json.data);
+    } catch (error) {
+
       console.error(error);
     } finally {
       setLoading(false);
@@ -37,28 +40,39 @@ export default function WallpaperScreen() {
     getWallpapers();
   }, []);
 
+  navigation.setOptions({
+    headerShown: false,
+    contentStyle: {borderTopWidth: 0},
+  });
+
   return (
     <View
       style={{
-        height: dimension.height,
         width: dimension.width,
-        paddingTop: 0,
-        backgroundColor: '#31363F',
+        backgroundColor: '#212121',
       }}>
+      <View style={Style.transparentHeaderBar}>
+        <View style={Style.backButtonContainer}>
+          <Pressable onPress={() => navigation.goBack()}>
+            <Icon
+              name="arrow-back"
+              color="white"
+              size={32}
+              style={{backgroundColor: 'transparent'}}
+            />
+          </Pressable>
+        </View>
+      </View>
+
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <FlatList
-          data={data}
-          keyExtractor={({id}) => id}
-          renderItem={({item}) => {
-            return (
-              <Image
-                style={{height: dimension.height}}
-                source={{uri: item.thumbs.large}}
-              />
-            );
+        <Image
+          style={{
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height,
           }}
+          source={{uri: data.path}}
         />
       )}
     </View>

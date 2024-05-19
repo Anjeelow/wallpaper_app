@@ -1,62 +1,120 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 export const Style = StyleSheet.create({
-    allcolorContainer:{
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#31363F',
-        paddingLeft: 30,
+  allcolorContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#212121',
+  },
+  allcolorView: {
+    flexDirection: 'row',
+  },
+  allcolor: {
+    justifyContent: 'center',
+    height: 80,
+    width: '100%',
+  },
+  colorContainer: {
+    flex: 1,
+    height: 48,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginHorizontal: 5,
+  },
+  wallpaperContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 180,
+    backgroundColor: '#010838',
+    margin: 5,
+    borderRadius: 10,
+  },
+  wallpaper: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  invisiblecontainer: {
+    backgroundColor: 'transparent',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '48%',
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 10,
+  },
+  text: {
+    paddingLeft: 24,
+    fontSize: 24,
+    fontWeight: '300',
+    color: 'white',
+    justifyContent: 'center',
+    alignContent: 'center',
+    textShadowColor: 'black',
+    textShadowOffset: {height: 1},
+    textShadowRadius: 8,
+  },
+  defaultShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      height: 50,
     },
-    allcolorView:{
-        flexDirection: 'row',
+    elevation: 5,
+  },
+  textStyle: {
+    key: {
+      fontSize: 16,
+      color: 'white',
+      fontWeight: 'semibold',
     },
-    allcolor: {
-        justifyContent: 'center',
-        height: 75,
-        width: 120,
-        margin: 5,
+    param: {
+      fontSize: 16,
+      color: 'white',
+      fontWeight: '100',
     },
-    colorContainer: {
-        flex: 1, 
-        height: 48,
-        borderRadius: 100,
-        borderWidth: 1,
-        borderColor: 'black',
-        marginHorizontal: 5,
+    title: {
+      fontSize: 32,
+      fontWeight: 'regular',
+      color: 'white',
     },
-    wallpaperContainer: {
-        flex: 1, 
-        justifyContent: "center",
-        alignItems: "center", 
-        height: 150, 
-        backgroundColor: '#010838', 
-        margin: 5, 
-        borderRadius: 10,
+    category: {
+      fontWeight: 'bold',
+      fontSize: 24,
+      color: 'white',
     },
-    wallpaper: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 10,
+  },
+  transparentHeaderBar: {
+    zIndex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+  },
+  backButtonContainer: {
+    margin: 8,
+    backgroundColor: '#424242',
+    opacity: 0.8,
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    invisiblecontainer: {
-        backgroundColor: 'transparent',
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        width: "48%",
-        height: 52,
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        borderWidth: 1,
-        borderColor: "white",
-        borderRadius: 10,
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 16,
-        color: 'white',
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-})
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});

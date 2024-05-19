@@ -36,6 +36,15 @@ export default function ByColorScreen({navigation}) {
     getWallpapers();
   }, []);
 
+  navigation.setOptions({
+    screenOptions: {
+      contentStyle: {
+        borderTopColor: `#${color}`,
+        borderTopWidth: 3,
+      },
+    },
+  });
+
   const wallpapernumColumns = 3;
   const formatData = (data, numColumns) => {
     const numberOfFullRows = Math.floor(data.length / numColumns);
@@ -59,7 +68,7 @@ export default function ByColorScreen({navigation}) {
         padding: 20,
         paddingTop: 0,
         width: '100%',
-        backgroundColor: '#31363F',
+        backgroundColor: '#212121',
       }}>
       <View>
         {isLoading ? (
@@ -79,7 +88,11 @@ export default function ByColorScreen({navigation}) {
               } else {
                 return (
                   <Pressable
-                    onPress={() => navigation.navigate(' ', {id: item.id})}
+                    onPress={() =>
+                      navigation.navigate('ViewWallpaper', {
+                        id: item.id,
+                      })
+                    }
                     style={Style.wallpaperContainer}>
                     <Image
                       style={Style.wallpaper}
