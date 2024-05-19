@@ -49,14 +49,7 @@ export default function TopScreen({navigation}) {
   };
 
   return (
-    <View
-      style={{
-        height: '100%',
-        padding: 20,
-        paddingTop: 0,
-        width: '100%',
-        backgroundColor: '#212121',
-      }}>
+    <View style={Style.pageContainer}>
       <View>
         {isLoading ? (
           <ActivityIndicator />

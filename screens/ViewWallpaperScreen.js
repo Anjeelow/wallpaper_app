@@ -88,7 +88,11 @@ function ViewWallpaperScreen({navigation}) {
             {`${data.dimension_x}`} x {`${data.dimension_y}`}
           </Text>
           <Text style={{color: 'white'}}>
-            {data.source === '' ? 'Source not provided' : data.source}
+            {data.source === ''
+              ? 'Source not provided'
+              : data.source && data.source.length > 30
+              ? `${data.source.substring(0, 35)}...`
+              : data.source}
           </Text>
         </View>
         <Pressable onPress={() => setFavorite(!isFavorite)}>

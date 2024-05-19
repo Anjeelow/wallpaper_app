@@ -43,6 +43,10 @@ export default function ColorsScreen({navigation}) {
     {id: 29, color: '424153'},
   ];
 
+  navigation.setOptions({
+    contentStyle: {borderTopWidth: 0},
+  });
+
   return (
     <View style={Style.allcolorContainer}>
       <FlatList

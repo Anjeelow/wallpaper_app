@@ -94,6 +94,10 @@ export default function HomeScreen({navigation}) {
         title="Go to About"
         onPress={() => navigation.navigate('About')}
       />
+      <Button
+        title="Go to Search"
+        onPress={() => navigation.navigate('Search')}
+      />
       <View
         style={{
           flexDirection: 'row',

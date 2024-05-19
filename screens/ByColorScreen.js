@@ -23,6 +23,7 @@ export default function ByColorScreen({navigation}) {
       const response = await fetch(
         `https://wallhaven.cc/api/v1/search?colors=${color}`,
       );
+      console.log(color);
       const json = await response.json();
       setData(json.data);
     } catch (error) {
@@ -37,12 +38,11 @@ export default function ByColorScreen({navigation}) {
   }, []);
 
   navigation.setOptions({
-    screenOptions: {
-      contentStyle: {
-        borderTopColor: `#${color}`,
-        borderTopWidth: 3,
-      },
+    contentStyle: {
+      borderTopColor: `#${color}`,
+      borderTopWidth: 3,
     },
+    title: color,
   });
 
   const wallpapernumColumns = 3;
@@ -62,14 +62,7 @@ export default function ByColorScreen({navigation}) {
   };
 
   return (
-    <View
-      style={{
-        height: '100%',
-        padding: 20,
-        paddingTop: 0,
-        width: '100%',
-        backgroundColor: '#212121',
-      }}>
+    <View style={Style.pageContainer}>
       <View>
         {isLoading ? (
           <ActivityIndicator />
