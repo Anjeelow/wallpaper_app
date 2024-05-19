@@ -14,6 +14,7 @@ import AboutScreen from './screens/AboutScreen';
 import SearchScreen from './screens/SearchScreen';
 import FavoriteScreen from './screens/FavoriteScreen';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
