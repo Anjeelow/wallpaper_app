@@ -16,42 +16,23 @@ import React, {useEffect, useState, useRef} from 'react';
 import {Style} from '../styles/Global';
 
 export default function HotScreen({navigation}) {
-  const [isLoading, setLoading] = useState(true);
-  const [isFilter, setFilter] = useState(false);
-  const [isModal, setModal] = useState(false);
+  //Search
   const [search, setSearch] = useState('');
+
+  //Data call and data store
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const timeoutRef = useRef(null);
 
-  const filter = {
-    category: [
-      '100', //General
-      '101', //Anime
-      '111', //People, default
-    ],
-    purities: [
-      '100', //sfw
-      '110', //sketchy
-    ],
-    sorting: [
-      'date_added', //default
-      'relevance',
-      'random',
-      'views',
-      'favorites',
-      'toplist',
-    ],
-    topRange: ['1d', '3d', '1w', '1M', '3M', '6M', '1y'], //1M default
-    order: ['desc', 'asc'], //desc default
-  };
+  const [isLoading, setLoading] = useState(true);
 
   const getWallpapers = async searchQuery => {
     try {
       const response = await fetch(
-        `https://wallhaven.cc/api/v1/search?q=${searchQuery}&order=`,
+        `https://wallhaven.cc/api/v1/search?q=${searchQuery}`,
       );
       const json = await response.json();
-      setData(json.data);
+      setData([...data, ...json.data]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -59,9 +40,13 @@ export default function HotScreen({navigation}) {
     }
   };
 
+  const loadNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   useEffect(() => {
     getWallpapers('');
-  }, []);
+  }, [currentPage]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -85,9 +70,6 @@ export default function HotScreen({navigation}) {
         hintTextColor: 'white',
         shouldShowHintSearchIcon: false,
       },
-      headerRight: () => (
-        <Button title="filter" onPress={() => setModal(true)} />
-      ),
     });
   }, [navigation]);
 
@@ -108,14 +90,7 @@ export default function HotScreen({navigation}) {
   };
 
   return (
-    <View
-      style={{
-        height: '100%',
-        padding: 20,
-        paddingTop: 0,
-        width: '100%',
-        backgroundColor: '#212121',
-      }}>
+    <View style={Style.pageContainer}>
       <View>
         {isLoading ? (
           <ActivityIndicator />
@@ -146,61 +121,11 @@ export default function HotScreen({navigation}) {
                 );
               }
             }}
+            onEndReached={loadNextPage}
+            onEndReachedThreshold={0}
           />
         )}
       </View>
-
-      <Modal
-        visible={isModal}
-        onRequestClose={() => setModal(false)}
-        transparent={true}
-        animationType="fade">
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            height: '100%',
-            width: '100%',
-          }}>
-          {/*For closing only! Workaround for it*/}
-          <Pressable
-            onPress={() => setModal(false)}
-            style={{
-              backgroundColor: 'transparent',
-              height: '40%',
-              width: '100%',
-            }}
-          />
-          <View
-            style={{
-              width: '100%',
-              height: '60%',
-              backgroundColor: '#424242',
-              borderTopRightRadius: 8,
-            }}>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Pressable onPress={() => setModal(false)}>
-                <Icon
-                  name="closecircleo"
-                  color="white"
-                  size={40}
-                  style={{backgroundColor: 'transparent'}}
-                />
-              </Pressable>
-
-              <View
-                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text>Reset</Text>
-                <Text>Filter</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 }

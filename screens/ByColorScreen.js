@@ -1,8 +1,6 @@
 import {
   Pressable,
   View,
-  Text,
-  StyleSheet,
   ActivityIndicator,
   FlatList,
   Image,
@@ -16,16 +14,18 @@ export default function ByColorScreen({navigation}) {
   const color = route.params?.color;
 
   const [isLoading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
   const getWallpapers = async () => {
     try {
       const response = await fetch(
-        `https://wallhaven.cc/api/v1/search?colors=${color}`,
+        `https://wallhaven.cc/api/v1/search?colors=${color}&page=${currentPage}`,
       );
+      console.log(color);
       const json = await response.json();
-      setData(json.data);
-    } catch(error) {
+      setData([...data, ...json.data]);
+    } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
@@ -34,15 +34,18 @@ export default function ByColorScreen({navigation}) {
 
   useEffect(() => {
     getWallpapers();
-  }, []);
+  }, [currentPage]);
+
+  const loadNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
 
   navigation.setOptions({
-    screenOptions: {
-      contentStyle: {
-        borderTopColor: `#${color}`,
-        borderTopWidth: 3,
-      },
+    contentStyle: {
+      borderTopColor: `#${color}`,
+      borderTopWidth: 3,
     },
+    title: color,
   });
 
   const wallpapernumColumns = 3;
@@ -62,14 +65,7 @@ export default function ByColorScreen({navigation}) {
   };
 
   return (
-    <View
-      style={{
-        height: '100%',
-        padding: 20,
-        paddingTop: 0,
-        width: '100%',
-        backgroundColor: '#212121',
-      }}>
+    <View style={Style.pageContainer}>
       <View>
         {isLoading ? (
           <ActivityIndicator />
@@ -102,6 +98,8 @@ export default function ByColorScreen({navigation}) {
                 );
               }
             }}
+            onEndReached={loadNextPage}
+            onEndReachedThreshold={0}
           />
         )}
       </View>

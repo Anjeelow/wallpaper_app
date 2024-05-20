@@ -1,6 +1,13 @@
 import {StyleSheet} from 'react-native';
 
 export const Style = StyleSheet.create({
+  pageContainer: {
+    height: '100%',
+    padding: 8,
+    paddingTop: 0,
+    width: '100%',
+    backgroundColor: '#212121',
+  },
   allcolorContainer: {
     width: '100%',
     height: '100%',
@@ -11,7 +18,7 @@ export const Style = StyleSheet.create({
   },
   allcolor: {
     justifyContent: 'center',
-    height: 80,
+    height: 60,
     width: '100%',
   },
   colorContainer: {
@@ -28,7 +35,7 @@ export const Style = StyleSheet.create({
     alignItems: 'center',
     height: 180,
     backgroundColor: '#010838',
-    margin: 5,
+    margin: 4,
     borderRadius: 10,
   },
   wallpaper: {

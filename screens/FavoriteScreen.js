@@ -10,6 +10,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Style} from '../styles/Global';
 
+
+
 export default function HotScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -49,14 +51,7 @@ export default function HotScreen({navigation}) {
   };
 
   return (
-    <View
-      style={{
-        height: '100%',
-        padding: 20,
-        paddingTop: 0,
-        width: '100%',
-        backgroundColor: '#31363F',
-      }}>
+    <View style={Style.pageContainer}>
       <View>
         {isLoading ? (
           <ActivityIndicator />

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Button, Pressable, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -14,7 +13,6 @@ import AboutScreen from './screens/AboutScreen';
 import SearchScreen from './screens/SearchScreen';
 import FavoriteScreen from './screens/FavoriteScreen';
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -24,48 +22,9 @@ export default function App() {
         screenOptions={{
           headerStyle: {backgroundColor: '#303030'},
           contentStyle: {borderTopColor: '#9E9E9E', borderTopWidth: 3},
-          headerTitleStyle: {color: 'white'},
           headerTintColor: 'white',
         }}>
-        <Stack.Screen
-          name="Wallpaper"
-          options={{
-            headerRight: () => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: 110,
-                }}>
-                <Pressable>
-                  <Icon
-                    name="search"
-                    color="rgba(255, 255, 255, .9)"
-                    size={24}
-                    style={{backgroundColor: 'transparent'}}
-                  />
-                </Pressable>
-                <Pressable>
-                  <Icon
-                    name="favorite"
-                    color="rgba(255, 255, 255, .9)"
-                    size={24}
-                    style={{backgroundColor: 'transparent'}}
-                  />
-                </Pressable>
-                <Pressable>
-                  <Icon
-                    name="info"
-                    color="rgba(255, 255, 255, .9)"
-                    size={24}
-                    style={{backgroundColor: 'transparent'}}
-                  />
-                </Pressable>
-              </View>
-            ),
-          }}
-          component={HomeScreen}
-        />
+        <Stack.Screen name="Wallpaper" component={HomeScreen} />
         <Stack.Screen name="Top" component={TopScreen} />
         <Stack.Screen name="Hot" component={HotScreen} />
         <Stack.Screen name="Colors" component={ColorsScreen} />
