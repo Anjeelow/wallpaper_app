@@ -10,6 +10,8 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Style} from '../styles/Global';
 
+
+
 export default function HotScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);

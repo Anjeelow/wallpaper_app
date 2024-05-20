@@ -12,27 +12,32 @@ import {Style} from '../styles/Global';
 
 export default function HotScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
   const getWallpapers = async () => {
     try {
       const response = await fetch(
-        'https://wallhaven.cc/api/v1/search?sorting=hot&purity=111',
+        `https://wallhaven.cc/api/v1/search?sorting=hot&purity=111&page=${currentPage}`,
       );
       const json = await response.json();
-      setData(json.data);
-    } catch(error) {
+      setData([...data, ...json.data]);
+    } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
+  const loadNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   useEffect(() => {
     getWallpapers();
-  }, []);
+  }, [currentPage]);
 
-  const wallpapernumColumns = 3;
+  let wallpapernumColumns = 3;
   const formatData = (data, numColumns) => {
     const numberOfFullRows = Math.floor(data.length / numColumns);
     let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
@@ -80,6 +85,8 @@ export default function HotScreen({navigation}) {
                 );
               }
             }}
+            onEndReached={loadNextPage}
+            onEndReachedThreshold={0}
           />
         )}
       </View>

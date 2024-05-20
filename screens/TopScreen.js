@@ -12,15 +12,16 @@ import {Style} from '../styles/Global';
 
 export default function TopScreen({navigation}) {
   const [isLoading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
 
   const getWallpapers = async () => {
     try {
       const response = await fetch(
-        'https://wallhaven.cc/api/v1/search?sorting=toplist',
+        `https://wallhaven.cc/api/v1/search?sorting=toplist&page=${currentPage}`,
       );
       const json = await response.json();
-      setData(json.data);
+      setData([...data, ...json.data]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,9 +29,13 @@ export default function TopScreen({navigation}) {
     }
   };
 
+  const loadNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
   useEffect(() => {
     getWallpapers();
-  }, []);
+  }, [currentPage]);
 
   const wallpapernumColumns = 3;
   const formatData = (data, numColumns) => {
@@ -80,6 +85,8 @@ export default function TopScreen({navigation}) {
                 );
               }
             }}
+            onEndReached={loadNextPage}
+            onEndReachedThreshold={0}
           />
         )}
       </View>

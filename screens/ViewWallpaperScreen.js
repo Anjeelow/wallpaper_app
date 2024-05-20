@@ -1,12 +1,17 @@
 import {
   ActivityIndicator,
   Button,
+  Clipboard,
   Dimensions,
   Image,
+  Linking,
   Pressable,
+  PermissionsAndroid,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from 'react-native';
 
@@ -15,6 +20,7 @@ import {useRoute} from '@react-navigation/native';
 import {Style} from '../styles/Global';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import RNFetchBlob from 'rn-fetch-blob';
 
 function ViewWallpaperScreen({navigation}) {
   const dimension = Dimensions.get('window');
@@ -44,6 +50,67 @@ function ViewWallpaperScreen({navigation}) {
   navigation.setOptions({
     contentStyle: {borderTopWidth: 0},
   });
+
+  const handleCopyToClipboard = link => {
+    Clipboard.setString(link);
+    ToastAndroid.show('Text copied to clipboard!', ToastAndroid.SHORT);
+  };
+
+  const checkPermission = async () => {
+    if (Platform.OS === 'ios') {
+      downloadImage();
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission Required',
+            message: 'App needs access to your storage to download Photos',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Storage Permission Granted');
+          downloadImage();
+        } else {
+          alert('Storage Permission Not Granted');
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+  };
+
+  const downloadImage = () => {
+    let date = new Date();
+    let image_URL = data.path;
+    let ext = getExtension(image_URL);
+    ext = '.' + ext[0];
+    const {config, fs} = RNFetchBlob;
+    let PictureDir = fs.dirs.PictureDir;
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path:
+          PictureDir +
+          '/image_' +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          ext,
+        description: 'image',
+      },
+    };
+    config(options)
+      .fetch('GET', image_URL)
+      .then(res => {
+        console.log('res -> ', JSON.stringify(res));
+        alert('image downloaded successfuly');
+      });
+  };
+
+  const getExtension = filename => {
+    return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : undefined;
+  };
 
   return (
     <View
@@ -87,6 +154,7 @@ function ViewWallpaperScreen({navigation}) {
           <Text style={Style.textStyle.category}>
             {`${data.dimension_x}`} x {`${data.dimension_y}`}
           </Text>
+<<<<<<< Updated upstream
           <Text style={{color: 'white'}}>
             {data.source === ''
               ? 'Source not provided'
@@ -94,8 +162,27 @@ function ViewWallpaperScreen({navigation}) {
               ? `${data.source.substring(0, 35)}...`
               : data.source}
           </Text>
+=======
+
+          {data.source === '' ? (
+            <Text style={{color: 'white'}}>Source not provided</Text>
+          ) : (
+            <Pressable
+              onPress={() => Linking.openURL(`${data.source}`)}
+              onLongPress={() => handleCopyToClipboard(`${data.source}`)}>
+              <Text style={{color: 'white'}}>
+                {data.source && data.source.length > 60
+                  ? `${data.source.substring(0, 60)}...`
+                  : data.source}
+              </Text>
+            </Pressable>
+          )}
+>>>>>>> Stashed changes
         </View>
-        <Pressable onPress={() => setFavorite(!isFavorite)}>
+        <Pressable
+          onPress={() => {
+            setFavorite(!isFavorite);
+          }}>
           {isFavorite ? (
             <Icon
               name="favorite"
@@ -152,21 +239,32 @@ function ViewWallpaperScreen({navigation}) {
                 {data.file_size / 100000} MiB
               </Text>
               <Text style={Style.textStyle.param}>{data.views}</Text>
-              <Text style={Style.textStyle.param}>{data.short_url}</Text>
+              <Pressable
+                onLongPress={() => handleCopyToClipboard(`${data.short_url}`)}>
+                <Text style={Style.textStyle.param}>{data.short_url}</Text>
+              </Pressable>
             </View>
           </View>
         </View>
       </ScrollView>
 
-      {/*TEMPORARY!!!*/}
-      <Button
-        title="Go to About"
-        onPress={() => navigation.navigate('About')}
-      />
-      <Button
-        title="Go to Favorite"
-        onPress={() => navigation.navigate('Favorite')}
-      />
+      <Pressable
+        onPress={checkPermission}
+        style={{
+          height: 60,
+          backgroundColor: '#669900',
+          alignItems: 'center', // Center children horizontally
+          justifyContent: 'center', // Center children vertically
+        }}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: '500',
+          }}>
+          Download Image
+        </Text>
+      </Pressable>
     </View>
   );
 }
