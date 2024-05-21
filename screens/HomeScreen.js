@@ -128,17 +128,6 @@ export default function HomeScreen({navigation}) {
 
   return (
     <View style={{height: '100%', width: '100%'}} backgroundColor="#212121">
-<<<<<<< Updated upstream
-      <Button
-        title="Go to About"
-        onPress={() => navigation.navigate('About')}
-      />
-      <Button
-        title="Go to Search"
-        onPress={() => navigation.navigate('Search')}
-      />
-=======
->>>>>>> Stashed changes
       <View
         style={{
           flexDirection: 'row',
