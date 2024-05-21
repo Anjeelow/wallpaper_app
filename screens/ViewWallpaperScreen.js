@@ -154,16 +154,6 @@ function ViewWallpaperScreen({navigation}) {
           <Text style={Style.textStyle.category}>
             {`${data.dimension_x}`} x {`${data.dimension_y}`}
           </Text>
-<<<<<<< Updated upstream
-          <Text style={{color: 'white'}}>
-            {data.source === ''
-              ? 'Source not provided'
-              : data.source && data.source.length > 30
-              ? `${data.source.substring(0, 35)}...`
-              : data.source}
-          </Text>
-=======
-
           {data.source === '' ? (
             <Text style={{color: 'white'}}>Source not provided</Text>
           ) : (
@@ -177,7 +167,6 @@ function ViewWallpaperScreen({navigation}) {
               </Text>
             </Pressable>
           )}
->>>>>>> Stashed changes
         </View>
         <Pressable
           onPress={() => {
