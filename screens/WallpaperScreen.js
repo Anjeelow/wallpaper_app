@@ -120,7 +120,7 @@ export default function WallpaperScreen({navigation}) {
       </View>
 
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator size="large" />
       ) : (
         <Pressable
           onPress={() => {

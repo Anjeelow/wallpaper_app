@@ -18,7 +18,7 @@ export default function HotScreen({navigation}) {
   const getWallpapers = async () => {
     try {
       const response = await fetch(
-        `https://wallhaven.cc/api/v1/search?sorting=hot&purity=111&page=${currentPage}`,
+        `https://wallhaven.cc/api/v1/search?sorting=hot&page=${currentPage}`,
       );
       const json = await response.json();
       setData([...data, ...json.data]);

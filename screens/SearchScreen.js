@@ -16,10 +16,8 @@ import React, {useEffect, useState, useRef} from 'react';
 import {Style} from '../styles/Global';
 
 export default function HotScreen({navigation}) {
-  //Search
   const [search, setSearch] = useState('');
 
-  //Data call and data store
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const timeoutRef = useRef(null);
@@ -29,7 +27,7 @@ export default function HotScreen({navigation}) {
   const getWallpapers = async searchQuery => {
     try {
       const response = await fetch(
-        `https://wallhaven.cc/api/v1/search?q=${searchQuery}`,
+        `https://wallhaven.cc/api/v1/search?q=${searchQuery}&page=${currentPage}`,
       );
       const json = await response.json();
       setData([...data, ...json.data]);
