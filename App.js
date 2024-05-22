@@ -11,6 +11,7 @@ import ByColorScreen from './screens/ByColorScreen';
 import ViewWallpaperScreen from './screens/ViewWallpaperScreen';
 import AboutScreen from './screens/AboutScreen';
 import SearchScreen from './screens/SearchScreen';
+import HelpScreen from './screens/HelpScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name="ByColor" component={ByColorScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Help" component={HelpScreen} />
         <Stack.Screen
           name="ViewWallpaper"
           component={ViewWallpaperScreen}
