@@ -5,7 +5,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {Style} from '../styles/Global';
 import {useRoute} from '@react-navigation/native';
 
@@ -40,13 +40,15 @@ export default function ByColorScreen({navigation}) {
     setCurrentPage(currentPage + 1);
   };
 
-  navigation.setOptions({
-    contentStyle: {
-      borderTopColor: `#${color}`,
-      borderTopWidth: 3,
-    },
-    title: color,
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      contentStyle: {
+        borderTopColor: `#${color}`,
+        borderTopWidth: 3,
+      },
+      title: color,
+    });
+  }, [navigation]);
 
   const wallpapernumColumns = 3;
   const formatData = (data, numColumns) => {

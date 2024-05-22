@@ -7,7 +7,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 import {Style} from '../styles/Global';
 
 export default function ColorsScreen({navigation}) {
@@ -43,9 +43,11 @@ export default function ColorsScreen({navigation}) {
     {id: 29, color: '424153'},
   ];
 
-  navigation.setOptions({
-    contentStyle: {borderTopWidth: 0},
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      contentStyle: {borderTopWidth: 0},
+    });
+  }, [navigation]);
 
   return (
     <View style={Style.allcolorContainer}>

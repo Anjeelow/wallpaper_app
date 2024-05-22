@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/MaterialIcons';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {Style} from '../styles/Global';
 
 export default function HomeScreen({navigation}) {
@@ -90,41 +90,43 @@ export default function HomeScreen({navigation}) {
     return data;
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: 110,
-        }}>
-        <Pressable onPress={() => navigation.navigate('Search')}>
-          <Icons
-            name="search"
-            color="rgba(255, 255, 255, .9)"
-            size={24}
-            style={{backgroundColor: 'transparent'}}
-          />
-        </Pressable>
-        <Pressable onPress={() => navigation.navigate('Favorite')}>
-          <Icons
-            name="favorite"
-            color="rgba(255, 255, 255, .9)"
-            size={24}
-            style={{backgroundColor: 'transparent'}}
-          />
-        </Pressable>
-        <Pressable onPress={() => navigation.navigate('About')}>
-          <Icons
-            name="info"
-            color="rgba(255, 255, 255, .9)"
-            size={24}
-            style={{backgroundColor: 'transparent'}}
-          />
-        </Pressable>
-      </View>
-    ),
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: 110,
+          }}>
+          <Pressable onPress={() => navigation.navigate('Search')}>
+            <Icons
+              name="search"
+              color="rgba(255, 255, 255, .9)"
+              size={24}
+              style={{backgroundColor: 'transparent'}}
+            />
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('About')}>
+            <Icons
+              name="info"
+              color="rgba(255, 255, 255, .9)"
+              size={24}
+              style={{backgroundColor: 'transparent'}}
+            />
+          </Pressable>
+          <Pressable>
+            <Icons
+              name="help"
+              color="rgba(255, 255, 255, .9)"
+              size={24}
+              style={{backgroundColor: 'transparent'}}
+            />
+          </Pressable>
+        </View>
+      ),
+    });
+  }, [navigation]);
 
   return (
     <View style={{height: '100%', width: '100%'}} backgroundColor="#212121">

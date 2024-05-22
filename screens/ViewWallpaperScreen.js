@@ -15,7 +15,7 @@ import {
   View,
 } from 'react-native';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {Style} from '../styles/Global';
 
@@ -46,9 +46,11 @@ function ViewWallpaperScreen({navigation}) {
     getWallpapers();
   }, []);
 
-  navigation.setOptions({
-    contentStyle: {borderTopWidth: 0},
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      contentStyle: {borderTopWidth: 0},
+    });
+  }, [navigation]);
 
   const handleCopyToClipboard = link => {
     Clipboard.setString(link);
@@ -135,7 +137,13 @@ function ViewWallpaperScreen({navigation}) {
       </View>
 
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator
+          size="large"
+          style={[
+            styles.defaultShadow,
+            {width: '100%', height: dimension.height * 0.4},
+          ]}
+        />
       ) : (
         <Pressable onPress={() => navigation.navigate(' ', {id: id})}>
           <Image
