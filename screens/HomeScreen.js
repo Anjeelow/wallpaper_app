@@ -128,6 +128,79 @@ export default function HomeScreen({navigation}) {
     });
   }, [navigation]);
 
+  navigation.setOptions({
+    headerRight: () => (
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: 110,
+        }}>
+        <Pressable onPress={() => navigation.navigate('Search')}>
+          <Icons
+            name="search"
+            color="rgba(255, 255, 255, .9)"
+            size={24}
+            style={{backgroundColor: 'transparent'}}
+          />
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('Favorite')}>
+          <Icons
+            name="favorite"
+            color="rgba(255, 255, 255, .9)"
+            size={24}
+            style={{backgroundColor: 'transparent'}}
+          />
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('About')}>
+          <Icons
+            name="info"
+            color="rgba(255, 255, 255, .9)"
+            size={24}
+            style={{backgroundColor: 'transparent'}}
+          />
+        </Pressable>
+      </View>
+    ),
+  });
+  
+  //HELP SECTION MODAL
+  const App = () => {
+    const [modalVisible, setModalVisible] = useState(false);
+    return (
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Help Section:
+
+              </Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Image style={styles.image} source={require("./assets/xbutton.png")}/>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}>
+          <Image style={styles.image} source={require("./assets/helpbutton.png")}/>
+        </Pressable>
+      </View>
+    );
+  };
+  //END OF HELP SECTION MODAL
+  
   return (
     <View style={{height: '100%', width: '100%'}} backgroundColor="#212121">
       <View
@@ -264,4 +337,52 @@ export default function HomeScreen({navigation}) {
       </View>
     </View>
   );
+
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+      backgroundColor: '#2196F3',
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: 'justify',
+    },
+    image: {
+      width: 100,
+      height: 100
+    }
+  });
 }
