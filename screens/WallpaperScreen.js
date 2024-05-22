@@ -8,7 +8,7 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {Style} from '../styles/Global';
 
@@ -39,10 +39,12 @@ export default function WallpaperScreen({navigation}) {
     getWallpapers();
   }, []);
 
-  navigation.setOptions({
-    headerShown: false,
-    contentStyle: {borderTopWidth: 0},
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+      contentStyle: {borderTopWidth: 0},
+    });
+  }, [navigation]);
 
   const checkPermission = async () => {
     if (Platform.OS === 'ios') {
