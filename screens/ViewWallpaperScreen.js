@@ -29,7 +29,6 @@ function ViewWallpaperScreen({navigation}) {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [isFavorite, setFavorite] = useState(false);
 
   const getWallpapers = async () => {
     try {
@@ -160,7 +159,7 @@ function ViewWallpaperScreen({navigation}) {
             <Pressable
               onPress={() => Linking.openURL(`${data.source}`)}
               onLongPress={() => handleCopyToClipboard(`${data.source}`)}>
-              <Text style={{color: 'white'}}>
+              <Text style={{textDecorationLine: 'underline', color: '#03AED2'}}>
                 {data.source && data.source.length > 60
                   ? `${data.source.substring(0, 60)}...`
                   : data.source}
@@ -168,26 +167,6 @@ function ViewWallpaperScreen({navigation}) {
             </Pressable>
           )}
         </View>
-        <Pressable
-          onPress={() => {
-            setFavorite(!isFavorite);
-          }}>
-          {isFavorite ? (
-            <Icon
-              name="favorite"
-              color="red"
-              size={32}
-              style={{backgroundColor: 'transparent'}}
-            />
-          ) : (
-            <Icon
-              name="favorite-outline"
-              color="rgba(255, 255, 255, .9)"
-              size={32}
-              style={{backgroundColor: 'transparent'}}
-            />
-          )}
-        </Pressable>
       </View>
       <ScrollView>
         <View style={styles.container}>
@@ -229,8 +208,25 @@ function ViewWallpaperScreen({navigation}) {
               </Text>
               <Text style={Style.textStyle.param}>{data.views}</Text>
               <Pressable
-                onLongPress={() => handleCopyToClipboard(`${data.short_url}`)}>
-                <Text style={Style.textStyle.param}>{data.short_url}</Text>
+                onPress={() => handleCopyToClipboard(`${data.short_url}`)}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 16,
+                }}>
+                <Icon
+                  name="content-copy"
+                  color="white"
+                  size={16}
+                  style={{backgroundColor: 'transparent', paddingRight: 4}}
+                />
+                <Text
+                  style={[
+                    Style.textStyle.param,
+                    {textDecorationLine: 'underline', color: '#03AED2'},
+                  ]}>
+                  {data.short_url}
+                </Text>
               </Pressable>
             </View>
           </View>
